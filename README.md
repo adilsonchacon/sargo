@@ -1,2 +1,3 @@
-# argo
-Go commando line arguments parser
+# sargo
+
+Simple Args in Go: commando parser
