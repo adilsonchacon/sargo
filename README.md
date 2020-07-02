@@ -1,3 +1,3 @@
 # sargo
 
-Simple Args in Go: commando parser
+Simple Args in Go: command line parser
