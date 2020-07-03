@@ -49,14 +49,14 @@ func main() {
 }
 ```
 
-### Command Line Example 1
+#### Example 1
 
 ```
 $> go run main.go
 ```
 
 
-### Output
+Output:
 
 ```
 host: localhost
@@ -65,13 +65,13 @@ rate: 5.5
 activated: true
 ```
 
-### Command Line Example 2
+#### Example 2
 
 ```
 $> go run main.go --host=10.0.0.1 --port=9091 --rate=3.14 --activated=false
 ```
 
-### Output
+Output:
 
 ```
 host: 10.0.0.1
@@ -81,13 +81,13 @@ activated: false
 ```
 
 
-### Command Line Example 3
+#### Example 3
 
 ```
 $> go run main.go -h 10.0.0.1 -p 9091 -r 3.14 -a false
 ```
 
-### Output
+Output:
 
 ```
 host: 10.0.0.1
@@ -96,13 +96,13 @@ rate: 3.14
 activated: false
 ```
 
-### Command Line Example 4
+#### Example 4
 
 ```
 $> go run main.go --host=127.0.0.1 -p 9091 -a 1
 ```
 
-### Output
+Output:
 
 ```
 host: 127.0.0.1
@@ -111,13 +111,13 @@ rate: 5.5
 activated: true
 ```
 
-### Command Line Example 5
+#### Example 5
 
 ```
 $> go run main.go -r 938.291
 ```
 
-### Output
+Output:
 
 ```
 host: localhost
@@ -126,13 +126,13 @@ rate: 938.291
 activated: true
 ```
 
-### Command Line Example 6
+#### Example 6
 
 ```
 $> go run main.go --activated=f
 ```
 
-### Output
+Output:
 
 ```
 host: localhost
@@ -141,7 +141,7 @@ rate: 5.5
 activated: false
 ```
 
-## Print Help Example
+### Print Help Example
 
 ```go
 package main
@@ -161,7 +161,7 @@ func main() {
 }
 ```
 
-### Output
+Output:
 
 ```
 Usage:
