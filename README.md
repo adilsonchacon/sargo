@@ -204,19 +204,19 @@ Options:
 
 ### All Methods
 
-|Get(name string) (string, error)|
-|GetString(name string) (string, error)|
-|GetInt(name string) (int, error)|
-|GetInt32(name string) (int32, error)|
-|GetInt64(name string) (int64, error)|
-|GetUint(name string) (uint, error)|
-|GetUint32(name string) (uint32, error)|
-|GetUint64(name string) (uint64, error)|
-|GetFloat(name string) (float, error)|
-|GetFloat32(name string) (float32, error)|
-|GetFloat64(name string) (float64, error)|
-|GetBool(name string) (bool, error)|
-|PrintHelp()|
-|PrintHelpAndExit()|
-|SetUsage(tUsage string)|
-|GetUsage() string|
+| Get(name string) (string, error) |
+| GetString(name string) (string, error) |
+| GetInt(name string) (int, error) |
+| GetInt32(name string) (int32, error) |
+| GetInt64(name string) (int64, error) |
+| GetUint(name string) (uint, error) |
+| GetUint32(name string) (uint32, error) |
+| GetUint64(name string) (uint64, error) |
+| GetFloat(name string) (float, error) |
+| GetFloat32(name string) (float32, error) |
+| GetFloat64(name string) (float64, error) |
+| GetBool(name string) (bool, error) |
+| PrintHelp() |
+| PrintHelpAndExit() |
+| SetUsage(tUsage string) |
+| GetUsage() string |
