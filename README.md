@@ -157,9 +157,9 @@ func main() {
 }
 ```
 
-Output:
-
 ```
+$> go run main.go
+
 Usage:
   go run main.go [options]
 
@@ -188,14 +188,36 @@ func main() {
 }
 ```
 
-Output:
-
 ```
+$> go run main.go
+
 Usage:
   my_exec_file -c [PATH_TO_CONFIG_FILE]
 
 Options:
   -c, [--config]  # path for configuration file
+```
+
+### TIP!
+
+Most of the time, you are expecting a *--help* or *-h* to print the help. In that case you can do the following:
+
+```go
+
+if len(os.Args) > 1 && (os.Args[1] == "--help" || os.Args[1] == "-h") {
+	sargo.PrintHelp()
+}
+
+```
+
+```
+$> go run main.go --help
+```
+
+or just
+
+```
+$> go run main.go -h
 ```
 
 ### All Methods
