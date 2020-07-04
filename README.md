@@ -222,12 +222,9 @@ $> go run main.go -h
 
 ### All Methods
 
-<<<<<<< HEAD
-=======
 | ALL Methods |
 | --- |
 | Set(name string, shortCut string, defaultValue interface{}, description string) |
->>>>>>> d9b5e9989024037f1e7981d12f5337f46fe2530d
 | Get(name string) (string, error) |
 | GetString(name string) (string, error) |
 | GetInt(name string) (int, error) |
@@ -243,8 +240,4 @@ $> go run main.go -h
 | PrintHelp() |
 | PrintHelpAndExit() |
 | SetUsage(tUsage string) |
-<<<<<<< HEAD
 | GetUsage() string |
-=======
-| GetUsage() string |
->>>>>>> d9b5e9989024037f1e7981d12f5337f46fe2530d
