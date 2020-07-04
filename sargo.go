@@ -156,7 +156,7 @@ func PrintHelp() {
 		name := `[--` + value.Name + `]`
 		nameFormatter := `%-` + strconv.Itoa(biggestName+4) + `v`
 
-		formatter := `  -` + shortCutFormatter + ` ` + nameFormatter + `  # %s` + "\n"
+		formatter := `  ` + shortCutFormatter + ` ` + nameFormatter + `  # %s` + "\n"
 
 		fmt.Printf(formatter, shortCut, name, value.Description)
 	}

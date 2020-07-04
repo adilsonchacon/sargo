@@ -157,7 +157,7 @@ func main() {
 	sargo.Set("rate", "r", 5.5, "site rate. Default value is \"5.5\"")
 	sargo.Set("activated", "a", true, "activated. Default value is \"true\"")
   
-  sargo.PrintHelp()
+	sargo.PrintHelp()
 }
 ```
 
@@ -168,8 +168,55 @@ Usage:
   go run main.go [options]
 
 Options:
-  --h, [--host]       # http server host. Default value is "localhost"
-  --p, [--port]       # http server port. Default value is "8081"
-  --r, [--rate]       # site rate. Default value is "5.5"
-  --a, [--activated]  # activated. Default value is "true"
+  -h, [--host]       # http server host. Default value is "localhost"
+  -p, [--port]       # http server port. Default value is "8081"
+  -r, [--rate]       # site rate. Default value is "5.5"
+  -a, [--activated]  # activated. Default value is "true"
 ```
+
+### Print Help Custom Usage Example
+
+```go
+package main
+
+import (
+	"github.com/adilsonchacon/sargo"
+	"os"
+)
+
+func main() {
+	sargo.SetUsage("my_exec_file -c [PATH_TO_CONFIG_FILE]")
+	sargo.Set("config", "c", "./conf.yml", "path for configuration file")
+  
+	sargo.PrintHelp()
+}
+```
+
+Output:
+
+```
+Usage:
+  my_exec_file -c [PATH_TO_CONFIG_FILE]
+
+Options:
+  -c, [--config]  # path for configuration file
+```
+
+### All Methods
+
+|Get(name string) (string, error)|
+|GetString(name string) (string, error)|
+|GetInt(name string) (int, error)|
+|GetInt32(name string) (int32, error)|
+|GetInt64(name string) (int64, error)|
+|GetUint(name string) (uint, error)|
+|GetUint32(name string) (uint32, error)|
+|GetUint64(name string) (uint64, error)|
+|GetFloat(name string) (float, error)|
+|GetFloat32(name string) (float32, error)|
+|GetFloat64(name string) (float64, error)|
+|GetBool(name string) (bool, error)|
+|PrintHelp()|
+|PrintHelpAndExit()|
+|SetUsage(tUsage string)|
+|GetUsage() string|
