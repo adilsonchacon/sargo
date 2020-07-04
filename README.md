@@ -10,7 +10,7 @@ $> go get github.com/adilsonchacon/sargo
 
 ## Setup
 
-To setup the args of your application you should use the method *SET*. You can setup as many args as you want, but each name and shortcut must be unique.
+To setup the args in your application you should use the method *SET*. You can setup as many args as you want, but each name and shortcut must be unique.
 
 ```
 Set(name string, shortCut string, defaultValue interface{}, description string)
