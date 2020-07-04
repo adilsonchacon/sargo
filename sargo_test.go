@@ -993,9 +993,9 @@ func TestPrintHelp(t *testing.T) {
   whatever usage
 
 Options:
-  --f, [--first]   # first text description
-  --s, [--second]  # second text description
-  --t, [--third]   # third text description
+  -f, [--first]   # first text description
+  -s, [--second]  # second text description
+  -t, [--third]   # third text description
 `
 
 	rescueStdout := os.Stdout
