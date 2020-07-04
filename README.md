@@ -1,7 +1,28 @@
 # sargo
 
-Simple Args in Go: command line parser
+Simple (but awesome) args in Go: command line parser
 
+## Setup
+
+To setup the args of your application use should user the method *SET*. You can setup as many args you want, but each name and shortcut must be unique.
+
+```
+Set(name string, shortCut string, defaultValue interface{}, description string)
+```
+
+* *name* is the full name of the arg.
+* *shortCut* is the simplest abbreviation for the arg name.
+* *defaultValue* is the value that the arg will assume if it is not explicitly in command line.
+* *description* full explanation of the arg.
+
+```go
+sargo.Set("host", "h", "localhost", "http server host. Default value is \"localhost\"")
+sargo.Set("port", "p", 8081, "http server port. Default value is \"8081\"")
+sargo.Set("rate", "r", 5.5, "site rate. Default value is \"5.5\"")
+sargo.Set("activated", "a", true, "activated. Default value is \"true\"")
+```
+
+To understand how *sargo* works properly, check out the following complete examples:
 
 ## Main Example
 ```go
@@ -53,12 +74,7 @@ func main() {
 
 ```
 $> go run main.go
-```
 
-
-Output:
-
-```
 host: localhost
 port: 8081
 rate: 5.5
@@ -69,11 +85,7 @@ activated: true
 
 ```
 $> go run main.go --host=10.0.0.1 --port=9091 --rate=3.14 --activated=false
-```
 
-Output:
-
-```
 host: 10.0.0.1
 port: 9091
 rate: 3.14
@@ -85,11 +97,7 @@ activated: false
 
 ```
 $> go run main.go -h 10.0.0.1 -p 9091 -r 3.14 -a false
-```
 
-Output:
-
-```
 host: 10.0.0.1
 port: 9091
 rate: 3.14
@@ -100,11 +108,7 @@ activated: false
 
 ```
 $> go run main.go --host=127.0.0.1 -p 9091 -a 1
-```
 
-Output:
-
-```
 host: 127.0.0.1
 port: 9091
 rate: 5.5
@@ -115,11 +119,7 @@ activated: true
 
 ```
 $> go run main.go -r 938.291
-```
 
-Output:
-
-```
 host: localhost
 port: 8081
 rate: 938.291
@@ -130,11 +130,7 @@ activated: true
 
 ```
 $> go run main.go --activated=f
-```
 
-Output:
-
-```
 host: localhost
 port: 8081
 rate: 5.5
@@ -161,9 +157,9 @@ func main() {
 }
 ```
 
-Output:
-
 ```
+$> go run main.go
+
 Usage:
   go run main.go [options]
 
@@ -192,9 +188,9 @@ func main() {
 }
 ```
 
-Output:
-
 ```
+$> go run main.go
+
 Usage:
   my_exec_file -c [PATH_TO_CONFIG_FILE]
 
@@ -202,8 +198,36 @@ Options:
   -c, [--config]  # path for configuration file
 ```
 
+### TIP!
+
+Most of the time, you are expecting a *--help* or *-h* to print the help. In that case you can do the following:
+
+```go
+
+if len(os.Args) > 1 && (os.Args[1] == "--help" || os.Args[1] == "-h") {
+	sargo.PrintHelp()
+}
+
+```
+
+```
+$> go run main.go --help
+```
+
+or just
+
+```
+$> go run main.go -h
+```
+
 ### All Methods
 
+<<<<<<< HEAD
+=======
+| ALL Methods |
+| --- |
+| Set(name string, shortCut string, defaultValue interface{}, description string) |
+>>>>>>> d9b5e9989024037f1e7981d12f5337f46fe2530d
 | Get(name string) (string, error) |
 | GetString(name string) (string, error) |
 | GetInt(name string) (int, error) |
@@ -219,4 +243,8 @@ Options:
 | PrintHelp() |
 | PrintHelpAndExit() |
 | SetUsage(tUsage string) |
+<<<<<<< HEAD
 | GetUsage() string |
+=======
+| GetUsage() string |
+>>>>>>> d9b5e9989024037f1e7981d12f5337f46fe2530d
