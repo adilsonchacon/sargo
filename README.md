@@ -74,12 +74,7 @@ func main() {
 
 ```
 $> go run main.go
-```
 
-
-Output:
-
-```
 host: localhost
 port: 8081
 rate: 5.5
@@ -90,11 +85,7 @@ activated: true
 
 ```
 $> go run main.go --host=10.0.0.1 --port=9091 --rate=3.14 --activated=false
-```
 
-Output:
-
-```
 host: 10.0.0.1
 port: 9091
 rate: 3.14
@@ -106,11 +97,7 @@ activated: false
 
 ```
 $> go run main.go -h 10.0.0.1 -p 9091 -r 3.14 -a false
-```
 
-Output:
-
-```
 host: 10.0.0.1
 port: 9091
 rate: 3.14
@@ -121,11 +108,7 @@ activated: false
 
 ```
 $> go run main.go --host=127.0.0.1 -p 9091 -a 1
-```
 
-Output:
-
-```
 host: 127.0.0.1
 port: 9091
 rate: 5.5
@@ -136,11 +119,7 @@ activated: true
 
 ```
 $> go run main.go -r 938.291
-```
 
-Output:
-
-```
 host: localhost
 port: 8081
 rate: 938.291
@@ -151,11 +130,7 @@ activated: true
 
 ```
 $> go run main.go --activated=f
-```
 
-Output:
-
-```
 host: localhost
 port: 8081
 rate: 5.5
