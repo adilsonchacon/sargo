@@ -10,7 +10,7 @@ $> go get github.com/adilsonchacon/sargo
 
 ## Setup
 
-To setup the args of your application use should user the method *SET*. You can setup as many args you want, but each name and shortcut must be unique.
+To setup the args of your application you should use the method *SET*. You can setup as many args as you want, but each name and shortcut must be unique.
 
 ```
 Set(name string, shortCut string, defaultValue interface{}, description string)
@@ -18,7 +18,7 @@ Set(name string, shortCut string, defaultValue interface{}, description string)
 
 * *name* is the full name of the arg.
 * *shortCut* is the simplest abbreviation for the arg name.
-* *defaultValue* is the value that the arg will assume if it is not explicitly in command line.
+* *defaultValue* is the value that the arg will assume if the arg is not in command line.
 * *description* full explanation of the arg.
 
 ```go
@@ -229,7 +229,7 @@ if len(os.Args) > 1 && (os.Args[1] == "--help" || os.Args[1] == "-h") {
 $> go run main.go --help
 ```
 
-or just
+or just:
 
 ```
 $> go run main.go -h
@@ -237,7 +237,7 @@ $> go run main.go -h
 
 ### All Methods
 
-| ALL Methods |
+| List |
 | --- |
 | Set(name string, shortCut string, defaultValue interface{}, description string) |
 | Get(name string) (string, error) |
