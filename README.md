@@ -2,6 +2,12 @@
 
 Simple (but awesome) args in Go: command line parser
 
+## Install
+
+```
+$> go get github.com/adilsonchacon/sargo
+```
+
 ## Setup
 
 To setup the args of your application use should user the method *SET*. You can setup as many args you want, but each name and shortcut must be unique.
@@ -16,10 +22,19 @@ Set(name string, shortCut string, defaultValue interface{}, description string)
 * *description* full explanation of the arg.
 
 ```go
+...
+
+import ("github.com/adilsonchacon/sargo")
+
+...
+
 sargo.Set("host", "h", "localhost", "http server host. Default value is \"localhost\"")
 sargo.Set("port", "p", 8081, "http server port. Default value is \"8081\"")
 sargo.Set("rate", "r", 5.5, "site rate. Default value is \"5.5\"")
 sargo.Set("activated", "a", true, "activated. Default value is \"true\"")
+
+...
+
 ```
 
 To understand how *sargo* works properly, check out the following complete examples:
