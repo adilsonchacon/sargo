@@ -1,6 +1,6 @@
 # sargo
 
-Simple Args in Go: command line parser
+Simple (but awesome) args in Go: command line parser
 
 ## Setup
 
