@@ -182,7 +182,7 @@ Options:
   -h, [--host]       # http server host. Default value is "localhost"
   -p, [--port]       # http server port. Default value is "8081"
   -r, [--rate]       # site rate. Default value is "5.5"
-  -a, [--activated]  # activated. Default value is "true"
+  -a, [--activated]  # is site activated? Default value is "true"
 ```
 
 ### Print Help Custom Usage Example
