@@ -152,6 +152,10 @@ rate: 5.5
 activated: false
 ```
 
+#### What else?
+
+Go ahead and try more combinations!
+
 ### Print Help Example
 
 ```go
