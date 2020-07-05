@@ -166,7 +166,7 @@ func main() {
 	sargo.Set("host", "h", "localhost", "http server host. Default value is \"localhost\"")
 	sargo.Set("port", "p", 8081, "http server port. Default value is \"8081\"")
 	sargo.Set("rate", "r", 5.5, "site rate. Default value is \"5.5\"")
-	sargo.Set("activated", "a", true, "activated. Default value is \"true\"")
+	sargo.Set("activated", "a", true, "is site activated? Default value is \"true\"")
   
 	sargo.PrintHelp()
 }
