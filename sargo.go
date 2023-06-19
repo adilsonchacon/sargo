@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 type Option struct {
@@ -13,61 +14,60 @@ type Option struct {
 	ShortCut      string
 	DefaultValue  interface{}
 	Description   string
-	MatcherRegexp *regexp.Regexp
+	rawValue      string
+	matcherRegexp *regexp.Regexp
 }
 
 var options []Option
-var args []string
-var usage string
 
-func SetUsage(tUsage string) {
-	usage = tUsage
-}
+var usage string = "go run main.go [options]"
 
 func GetUsage() string {
 	return usage
 }
 
-func Set(name string, shortCut string, defaultValue interface{}, description string) {
-	var newOption Option
+func SetUsage(message string) {
+	usage = message
+}
 
-	newOption.Name = name
-	newOption.ShortCut = shortCut
-	newOption.DefaultValue = defaultValue
-	newOption.Description = description
-	newOption.MatcherRegexp = regexp.MustCompile(`\A((\-\-` + name + `)|(\-` + shortCut + `))(=|\z)`)
+func Set(newOption Option) {
+	newOption.matcherRegexp = regexp.MustCompile(`\A((\-\-` + newOption.Name + `)|(\-` + newOption.ShortCut + `))(=|\z)`)
+	newOption.rawValue = getRawValue(newOption)
 
 	options = append(options, newOption)
 }
 
-func Get(name string) (string, error) {
+func getRawValue(option Option) string {
 	var checkForEqualChar = regexp.MustCompile(`=`)
-	var checkForNext bool
-	var interfaceValue string
 
+	args := os.Args[1:]
+	for index, value := range args {
+		if option.matcherRegexp.MatchString(value) {
+			if checkForEqualChar.MatchString(value) {
+				s := checkForEqualChar.Split(value, 2)
+				return s[1]
+			} else if index < len(args)-1 && !strings.HasPrefix(args[index+1], "-") {
+				return args[index+1]
+			} else {
+				return "TRUE"
+			}
+		}
+	}
+
+	return ""
+}
+
+func Get(name string) (string, error) {
 	option, err := searchOptionByName(name)
 	if err != nil {
 		return "", err
 	}
 
-	interfaceValue = fmt.Sprintf("%v", option.DefaultValue)
-	checkForNext = false
-
-	for _, value := range args {
-		if checkForNext {
-			interfaceValue = value
-			checkForNext = false
-			break
-		} else if option.MatcherRegexp.MatchString(value) && checkForEqualChar.MatchString(value) {
-			s := checkForEqualChar.Split(value, 2)
-			interfaceValue = s[1]
-			break
-		} else if option.MatcherRegexp.MatchString(value) && !checkForEqualChar.MatchString(value) {
-			checkForNext = true
-		}
+	if option.rawValue == "" {
+		return fmt.Sprintf("%v", option.DefaultValue), nil
+	} else {
+		return option.rawValue, nil
 	}
-
-	return interfaceValue, nil
 }
 
 func GetString(name string) (string, error) {
@@ -177,12 +177,12 @@ func searchOptionByName(name string) (Option, error) {
 	return Option{}, errors.New("Option \"" + name + "\" was not found")
 }
 
-func parseInt(name string, bitSite int) (int64, error) {
+func parseInt(name string, bitSize int) (int64, error) {
 	value, err := Get(name)
 	if err != nil {
 		return 0, err
 	} else {
-		intValue, err := strconv.ParseInt(value, 10, bitSite)
+		intValue, err := strconv.ParseInt(value, 10, bitSize)
 		if err != nil {
 			return 0, err
 		} else {
@@ -205,21 +205,16 @@ func parseUint(name string, bitSize int) (uint64, error) {
 	}
 }
 
-func parseFloat(name string, bitSite int) (float64, error) {
+func parseFloat(name string, bitSize int) (float64, error) {
 	value, err := Get(name)
 	if err != nil {
 		return 0, err
 	} else {
-		floatValue, err := strconv.ParseFloat(value, bitSite)
+		floatValue, err := strconv.ParseFloat(value, bitSize)
 		if err != nil {
 			return 0, err
 		} else {
 			return floatValue, nil
 		}
 	}
-}
-
-func init() {
-	args = os.Args
-	usage = "go run main.go [options]"
 }

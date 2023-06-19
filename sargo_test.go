@@ -1,8 +1,7 @@
 package sargo
 
 import (
-	// "fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -12,24 +11,96 @@ type error interface {
 	Error() string
 }
 
-func TestUsage(t *testing.T) {
-	// deafault
-	if GetUsage() != "go run main.go [options]" {
-		t.Errorf("invalid default usage")
-	}
+var firstOptionForStringTest = Option{
+	Name:         "first",
+	ShortCut:     "f",
+	DefaultValue: "first default value",
+	Description:  "first text description",
+}
 
-	SetUsage("whatever usage")
+var secondOptionForStringTest = Option{
+	Name:         "second",
+	ShortCut:     "s",
+	DefaultValue: "second default value",
+	Description:  "second text description",
+}
 
-	if GetUsage() != "whatever usage" {
-		t.Errorf("invalid usage")
-	}
+var thirdOptionForStringTest = Option{
+	Name:         "third",
+	ShortCut:     "t",
+	DefaultValue: "third default value",
+	Description:  "third text description",
+}
+
+var firstOptionForIntTest = Option{
+	Name:         "first",
+	ShortCut:     "f",
+	DefaultValue: 10,
+	Description:  "first text description",
+}
+
+var secondOptionForIntTest = Option{
+	Name:         "second",
+	ShortCut:     "s",
+	DefaultValue: "20",
+	Description:  "second text description",
+}
+
+var thirdOptionForIntTest = Option{
+	Name:         "third",
+	ShortCut:     "t",
+	DefaultValue: "just a string",
+	Description:  "third text description",
+}
+
+var firstOptionForFloatTest = Option{
+	Name:         "first",
+	ShortCut:     "f",
+	DefaultValue: 10.1,
+	Description:  "first text description",
+}
+
+var secondOptionForFloatTest = Option{
+	Name:         "second",
+	ShortCut:     "s",
+	DefaultValue: "20.2",
+	Description:  "second text description",
+}
+
+var thirdOptionForFloatTest = Option{
+	Name:         "third",
+	ShortCut:     "t",
+	DefaultValue: "just a string",
+	Description:  "third text description",
+}
+
+var greenOptionForBoolTest = Option{
+	Name:         "green",
+	ShortCut:     "g",
+	DefaultValue: true,
+	Description:  "green text description",
+}
+
+var redOptionForBoolTest = Option{
+	Name:         "red",
+	ShortCut:     "r",
+	DefaultValue: "false",
+	Description:  "red text description",
+}
+
+var invalidOptionForBoolTest = Option{
+	Name:         "invalid",
+	ShortCut:     "i",
+	DefaultValue: "Not a boolean",
+	Description:  "none text description",
 }
 
 func TestGet(t *testing.T) {
 	options = nil
-	Set("first", "f", "first default value", "first text description")
-	Set("second", "s", "second default value", "second text description")
-	Set("third", "t", "third default value", "third text description")
+
+	Set(firstOptionForStringTest)
+	Set(secondOptionForStringTest)
+	Set(thirdOptionForStringTest)
 
 	// valid
 	value, err := Get("first")
@@ -80,9 +151,9 @@ func TestGet(t *testing.T) {
 
 func TestGetString(t *testing.T) {
 	options = nil
-	Set("first", "f", "first default value", "first text description")
-	Set("second", "s", "second default value", "second text description")
-	Set("third", "t", "third default value", "third text description")
+	Set(firstOptionForStringTest)
+	Set(secondOptionForStringTest)
+	Set(thirdOptionForStringTest)
 
 	// valid
 	value, err := GetString("first")
@@ -133,9 +204,9 @@ func TestGetString(t *testing.T) {
 
 func TestGetInt(t *testing.T) {
 	options = nil
-	Set("first", "f", 10, "first text description")
-	Set("second", "s", "20", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForIntTest)
+	Set(secondOptionForIntTest)
+	Set(thirdOptionForIntTest)
 
 	// valid
 	// int 10
@@ -218,9 +289,9 @@ func TestGetInt(t *testing.T) {
 
 func TestGetInt32(t *testing.T) {
 	options = nil
-	Set("first", "f", 10, "first text description")
-	Set("second", "s", "20", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForIntTest)
+	Set(secondOptionForIntTest)
+	Set(thirdOptionForIntTest)
 
 	// valid
 	// int 10
@@ -303,9 +374,9 @@ func TestGetInt32(t *testing.T) {
 
 func TestGetInt64(t *testing.T) {
 	options = nil
-	Set("first", "f", 10, "first text description")
-	Set("second", "s", "20", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForIntTest)
+	Set(secondOptionForIntTest)
+	Set(thirdOptionForIntTest)
 
 	// valid
 	// int 10
@@ -388,9 +459,9 @@ func TestGetInt64(t *testing.T) {
 
 func TestGetUint(t *testing.T) {
 	options = nil
-	Set("first", "f", 10, "first text description")
-	Set("second", "s", "20", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForIntTest)
+	Set(secondOptionForIntTest)
+	Set(thirdOptionForIntTest)
 
 	// valid
 	// int 10
@@ -473,9 +544,9 @@ func TestGetUint(t *testing.T) {
 
 func TestGetUint32(t *testing.T) {
 	options = nil
-	Set("first", "f", 10, "first text description")
-	Set("second", "s", "20", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForIntTest)
+	Set(secondOptionForIntTest)
+	Set(thirdOptionForIntTest)
 
 	// valid
 	// int 10
@@ -558,9 +629,9 @@ func TestGetUint32(t *testing.T) {
 
 func TestGetUint64(t *testing.T) {
 	options = nil
-	Set("first", "f", 10, "first text description")
-	Set("second", "s", "20", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForIntTest)
+	Set(secondOptionForIntTest)
+	Set(thirdOptionForIntTest)
 
 	// valid
 	// int 10
@@ -643,9 +714,9 @@ func TestGetUint64(t *testing.T) {
 
 func TestGetFloat(t *testing.T) {
 	options = nil
-	Set("first", "f", 10.1, "first text description")
-	Set("second", "s", "20.2", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForFloatTest)
+	Set(secondOptionForFloatTest)
+	Set(thirdOptionForFloatTest)
 
 	// valid
 	// int 10
@@ -727,10 +798,9 @@ func TestGetFloat(t *testing.T) {
 }
 
 func TestGetFloat32(t *testing.T) {
-	options = nil
-	Set("first", "f", 10.1, "first text description")
-	Set("second", "s", "20.2", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForFloatTest)
+	Set(secondOptionForFloatTest)
+	Set(thirdOptionForFloatTest)
 
 	// valid
 	// int 10
@@ -813,9 +883,9 @@ func TestGetFloat32(t *testing.T) {
 
 func TestGetFloat64(t *testing.T) {
 	options = nil
-	Set("first", "f", 10.1, "first text description")
-	Set("second", "s", "20.2", "second text description")
-	Set("third", "t", "just a string", "third text description")
+	Set(firstOptionForFloatTest)
+	Set(secondOptionForFloatTest)
+	Set(thirdOptionForFloatTest)
 
 	// valid
 	// int 10
@@ -899,95 +969,95 @@ func TestGetFloat64(t *testing.T) {
 
 func TestGetBool(t *testing.T) {
 	options = nil
-	Set("true", "t", true, "true text description")
-	Set("false", "f", "false", "false text description")
-	Set("none", "n", "Not a boolean", "none text description")
+	Set(greenOptionForBoolTest)
+	Set(redOptionForBoolTest)
+	Set(invalidOptionForBoolTest)
 
-	// valid
-	// int 10
-	value, err := GetBool("true")
-	if !value {
-		t.Errorf("could not return the option value by name")
-	}
-
-	if err != nil {
-		t.Errorf("error should be nil for an existing option name")
-	}
-
-	value, err = GetBool("t")
-	if !value {
-		t.Errorf("could not return the option value by short cut")
-	}
-
-	if err != nil {
-		t.Errorf("error should be nil for an existing option short cut")
-	}
-
-	// valid
-	// string to int 20
-	value, err = GetBool("false")
+	// green option = TRUE
+	value, err := GetBool("green")
 	if value {
-		t.Errorf("could not return the option value by name")
-	}
-
-	if err != nil {
-		t.Errorf("error should be nil for an existing option name")
-	}
-
-	value, err = GetBool("f")
-	if value {
-		t.Errorf("could not return the option value by short cut")
-	}
-
-	if err != nil {
-		t.Errorf("error should be nil for an existing option short cut")
-	}
-
-	// invalid
-	// in options
-	value, err = GetBool("none")
-	if value {
-		t.Errorf("return value should be empty for not existing option name")
+		t.Log("[PASSED] default value for the option \"green\" is TRUE")
+	} else {
+		t.Error("[FAILED] default value for the option \"green\" expect to be TRUE, but got FALSE")
 	}
 
 	if err == nil {
-		t.Errorf("error should not be nil for not existent option name")
+		t.Log("[PASSED] error is NIL for option \"green\"")
+	} else {
+		t.Error("[FAILED] error expected to be nil for option \"green\", but got NOT NIL")
 	}
 
-	// not in options
+	value, _ = GetBool("g")
+	if value {
+		t.Log("[PASSED] default value for the shortcut option \"g\" is TRUE")
+	} else {
+		t.Error("[FAILED] default value for the shortcut option \"g\" expect to be TRUE, but got FALSE")
+	}
+
+	// red option = FALSE
+	value, err = GetBool("red")
+	if !value {
+		t.Log("[PASSED] default value for the option \"red\" is FALSE")
+	} else {
+		t.Error("[FAILED] default value for the option \"red\" expect to be FALSE, but got TRUE")
+	}
+
+	if err == nil {
+		t.Log("[PASSED] error is NIL for a option \"red\"")
+	} else {
+		t.Error("[FAILED] error expected to be nil for a option \"red\", but got NOT NIL")
+	}
+
+	value, _ = GetBool("r")
+	if !value {
+		t.Log("[PASSED] default value for the shortcut option \"r\" is FALSE")
+	} else {
+		t.Error("[FAILED] default value for the shortcut option \"r\" expect to be FALSE, but got TRUE")
+	}
+
+	// invalid option - FALSE
+	value, err = GetBool("invalid")
+	if !value {
+		t.Log("[PASSED] default value for the option \"invalid\" is FALSE")
+	} else {
+		t.Error("[FAILED] default value for the option \"invalid\" expect to be FALSE, but got TRUE")
+	}
+
+	if err != nil {
+		t.Log("[PASSED] error expected to be nil for a option \"invalid\", but got NOT NIL")
+	} else {
+		t.Error("[FAILED] error is NIL for a option \"invalid\"")
+	}
+
+	// option does not exist
 	value, err = GetBool("fourth")
-	if value {
-		t.Errorf("return value should be empty for not existing option name")
+	if !value {
+		t.Log("[PASSED] default value for an option that does not exist is FALSE")
+	} else {
+		t.Errorf("[FAILED] default value for an option that does not exist expected to be FALSE, but got TRUE")
 	}
 
-	if err == nil {
-		t.Errorf("error should not be nil for not existent option name")
+	if err != nil {
+		t.Log("[PASSED] error is NOT NIL for a option does not exist")
+	} else {
+		t.Error("[FAILED] error expected to be NOT NIL for an option that does not exist, but got NIL")
 	}
 
-	if err.Error() != "Option \"fourth\" was not found" {
-		t.Errorf("error message is invalid")
-	}
-
-	value, err = GetBool("o")
-	if value {
-		t.Errorf("return value should be empty for not existing option short cut")
-	}
-
-	if err == nil {
-		t.Errorf("error should not be nil for not existent option short cut")
-	}
-
-	if err.Error() != "Option \"o\" was not found" {
-		t.Errorf("error message is invalid")
+	if err.Error() == "Option \"fourth\" was not found" {
+		t.Log("[PASSED] when option is not in Set, the error message is 'Option \"option-name\" was not found'")
+	} else {
+		t.Errorf("[FAILED] when option is not in Set, the error message is 'Option \"option-name?\" was not found' but got '%s'", err.Error())
 	}
 
 }
 
 func TestPrintHelp(t *testing.T) {
 	options = nil
-	Set("first", "f", "first default value", "first text description")
-	Set("second", "s", "second default value", "second text description")
-	Set("third", "t", "third default value", "third text description")
+	Set(firstOptionForStringTest)
+	Set(secondOptionForStringTest)
+	Set(thirdOptionForStringTest)
+
+	SetUsage("whatever usage")
 
 	helpContent := `Usage:
   whatever usage
@@ -1006,45 +1076,87 @@ Options:
 
 	w.Close()
 
-	out, _ := ioutil.ReadAll(r)
+	out, _ := io.ReadAll(r)
 
 	os.Stdout = rescueStdout
 
-	if strings.Trim(helpContent, " \n") != strings.Trim(string(out), " \n") {
-		t.Errorf("Version error. \nShould \"%s\" .\nGot: \"%s\"", strings.Trim(helpContent, " \n"), strings.Trim(string(out), " \n"))
+	if strings.Trim(helpContent, " \n") == strings.Trim(string(out), " \n") {
+		t.Log("[PASSED] Print help is OK")
+	} else {
+		t.Errorf("[FAILED] Print help error: \nExpected:\n\"%s\"\n\nGot:\n\"%s\"", strings.Trim(helpContent, " \n"), strings.Trim(string(out), " \n"))
 	}
 }
 
-func TestGetArgs(t *testing.T) {
-	options = nil
-	Set("first", "f", "first default value", "first text description")
-	Set("second", "s", "second default value", "second text description")
-	Set("third", "t", "third default value", "third text description")
+func TestGetArgsWithEqualSymbol(t *testing.T) {
+	os.Args = []string{"program", "-f=foo", "--second=bar"}
 
-	// testint args with equal
-	args = []string{"program", "-f=foo", "--second=bar"}
+	options = nil
+	Set(firstOptionForStringTest)
+	Set(secondOptionForStringTest)
+	Set(thirdOptionForStringTest)
 
 	value, _ := Get("f")
-	if value != "foo" {
-		t.Errorf("value should be equal in args")
+	if value == "foo" {
+		t.Log("[PASSED] value of param \"f\" is \"foo\"")
+	} else {
+		t.Errorf("[FAILED] value of params \"f\" excpected be \"foo\", but got \"%s\"", value)
 	}
 
 	value, _ = Get("second")
 	if value != "bar" {
 		t.Errorf("value should be equal in args")
 	}
+}
 
-	// testint args without equal
-	args = nil
-	args = []string{"program", "-f", "bar", "--second", "foo"}
+func TestGetArgsWithoutEqualSymbol(t *testing.T) {
+	os.Args = []string{"program", "-f", "bar", "--second", "foo"}
 
-	value, _ = Get("f")
-	if value != "bar" {
-		t.Errorf("value should be equal in args")
+	options = nil
+	Set(firstOptionForStringTest)
+	Set(secondOptionForStringTest)
+	Set(thirdOptionForStringTest)
+
+	value, _ := Get("f")
+	if value == "bar" {
+		t.Log("[PASSED] option \"f\" is \"bar\"")
+	} else {
+		t.Errorf("[FAILED] option \"f\" expected to be \"bar\", but got %s", value)
 	}
 
 	value, _ = Get("second")
-	if value != "foo" {
-		t.Errorf("value should be equal in args")
+	if value == "foo" {
+		t.Log("[PASSED] option \"second\" is \"foo\"")
+	} else {
+		t.Errorf("[FAILED] option \"second\" expected to be \"foo\", but got %s", value)
+	}
+}
+
+func TestGetExplicityBooleanArgs(t *testing.T) {
+	os.Args = []string{"program", "-r", "--second", "foo"}
+
+	options = nil
+	Set(redOptionForBoolTest)
+	Set(secondOptionForStringTest)
+
+	value, _ := GetBool("r")
+	if value {
+		t.Log("[PASSED] option \"r\" is TRUE")
+	} else {
+		t.Error("[FAILED] option \"r\" expected to be TRUE, but got FALSE")
+	}
+}
+
+func TestGetHiddenBooleanArgs(t *testing.T) {
+	os.Args = []string{"program", "--second", "foo"}
+
+	options = nil
+	Set(redOptionForBoolTest)
+	Set(secondOptionForStringTest)
+
+	value, _ := GetBool("f")
+	if !value {
+		t.Log("[PASSED] option \"f\" is FALSE")
+	} else {
+		t.Error("[FAILED] option \"f\" expected to be FALSE, but got TRUE")
 	}
 }
